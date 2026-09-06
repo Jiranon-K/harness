@@ -2,12 +2,27 @@
   "name": "harness",
   "version": "0.1.0",
   "description": "Personal engineering harness: deterministic gates (stop gate, git guard, format), session-start state recovery, and /harness:init | audit | end for any repository.",
-  "author": { "name": "Jiranon K", "url": "https://github.com/Jiranon-K" },
+  "author": {
+    "name": "Jiranon K",
+    "url": "https://github.com/Jiranon-K"
+  },
   "homepage": "https://github.com/Jiranon-K/harness",
   "repository": "https://github.com/Jiranon-K/harness",
   "license": "MIT",
-  "keywords": ["harness", "hooks", "claude-code", "feature-list", "session-continuity"],
-  "skills": ["./skills/init", "./skills/audit", "./skills/end", "./skills/principles"],
-  "agents": ["./agents/harness-evaluator.md"],
-  "hooks": "./hooks/hooks.json"
+  "keywords": [
+    "harness",
+    "hooks",
+    "claude-code",
+    "feature-list",
+    "session-continuity"
+  ],
+  "skills": [
+    "./skills/init",
+    "./skills/audit",
+    "./skills/end",
+    "./skills/principles"
+  ],
+  "agents": [
+    "./agents/harness-evaluator.md"
+  ]
 }
