@@ -21,8 +21,5 @@
     "./skills/audit",
     "./skills/end",
     "./skills/principles"
-  ],
-  "agents": [
-    "./agents/harness-evaluator.md"
   ]
 }
