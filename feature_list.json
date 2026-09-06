@@ -76,15 +76,18 @@
       "area": "profile",
       "title": "install.ps1 / install.sh install the Profile and register the marketplace",
       "user_visible_behavior": "Running the installer copies profile/CLAUDE.md to ~/.claude/CLAUDE.md (backing up a foreign file), merges marketplace jiranon + enabledPlugins.harness@jiranon into ~/.claude/settings.json without touching other keys, and prints next steps.",
-      "status": "in_progress",
+      "status": "passing",
       "verification": [
         ".\\install.ps1 on this machine; then ~/.claude/CLAUDE.md contains the Profile and settings.json contains extraKnownMarketplaces.jiranon and enabledPlugins.harness@jiranon while keeping the mattpocock marketplace",
         "Claude Code lists harness@jiranon after restart / plugin install"
       ],
-      "evidence": [],
+      "evidence": [
+        "2026-09-06: powershell -File ./install.ps1 → profile copied to ~/.claude/CLAUDE.md; settings.json now has extraKnownMarketplaces.jiranon (github Jiranon-K/harness) + enabledPlugins.harness@jiranon, mattpocock marketplace untouched",
+        "2026-09-06: claude plugin marketplace add Jiranon-K/harness; claude plugin install harness@jiranon → \"Successfully installed\"; claude plugin list → Status ✔ enabled; details → Skills (4) audit,end,init,principles · Agents (1) harness-evaluator · Hooks (4) SessionStart, PreToolUse, PostToolUse, Stop"
+      ],
       "spec": "",
       "depends_on": [],
-      "notes": "Installer written and parse-checked; not yet run on this machine."
+      "notes": ""
     },
     {
       "id": "yakusub-001",
@@ -92,13 +95,18 @@
       "area": "adoption",
       "title": "yakusub migrated to the plugin Runtime",
       "user_visible_behavior": "yakusub has harness.json; its project-level stop-gate and biome hooks and .claude/settings.json hooks are removed in favour of the plugin; CLAUDE.md no longer carries the Operating Loop; ./init.sh and the stop gate are green.",
-      "status": "not_started",
+      "status": "passing",
       "verification": [
         "cd D:/Project/yakusub && ./init.sh exits 0",
         "echo '{}' | CLAUDE_PROJECT_DIR=D:/Project/yakusub node hooks/stop-gate.mjs exits 0",
         "node scripts/validate.mjs --target D:/Project/yakusub exits 0"
       ],
-      "evidence": [],
+      "evidence": [
+        "2026-09-06: D:/Project/yakusub ./init.sh (template) → node/pnpm gates ok, pnpm install --frozen-lockfile, pnpm verify (typecheck 3/3, vitest 5 tests, biome 20 files) exit 0",
+        "2026-09-06: echo {} | CLAUDE_PROJECT_DIR=D:/Project/yakusub node hooks/stop-gate.mjs → exit 0; session-start.mjs → Operating Loop + Current Verified State + 0/13 passing injected",
+        "2026-09-06: node scripts/validate.mjs --target D:/Project/yakusub → 92/100, 0 FAIL",
+        "2026-09-06: yakusub commit \"Migrate to the harness plugin\": scripts/hooks/ and .claude/settings.json removed, CLAUDE.md 61 lines"
+      ],
       "spec": "",
       "depends_on": [
         "runtime-001",

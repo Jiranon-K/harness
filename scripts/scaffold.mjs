@@ -163,7 +163,10 @@ function finish() {
     for (const r of results) console.log(`  ${pad(r.status, 16)} ${r.path}${r.reason ? `  (${r.reason})` : ''}`)
     for (const n of det.notes ?? []) console.log(`  note: ${n}`)
     const written = results.filter((r) => /written|appended|refreshed|regenerated|overwritten/.test(r.status)).length
-    if (!dry && written) console.log('\nNext: review harness.json, replace example-001 in feature_list.json, run ./init.sh.')
+    if (!dry && written) {
+      const fl = results.find((r) => r.path === 'feature_list.json')?.status === 'written'
+      console.log(`\nNext: review harness.json${fl ? ', replace example-001 in feature_list.json' : ''}, run ./init.sh.`)
+    }
   }
   process.exit(0)
 }

@@ -7,8 +7,9 @@ handoff with `/harness:end`. Chat summaries are not state; this file is.
 
 - Repository root: `D:/Project/harness`
 - Standard startup path: `./init.sh` — verified green 2026-09-06 (node gate, `npm run verify`)
+- Plugin: `harness@jiranon` 0.1.0 installed from the GitHub marketplace on this machine; 4 skills, 1 agent, 4 hooks load
 - Standard verification path: `npm run verify` — node:test suite (56 tests) + `scripts/validate.mjs --target .`
-- Current highest-priority unfinished feature: `profile-001` (run the installer on this machine, confirm the plugin loads), then `yakusub-001`
+- Current highest-priority unfinished feature: `skills-001` (teach agent-skills to read `harness.json`; ADR-0003 follow-up), then `evaluator-001` (tune the rubric on real yakusub features)
 - Current blocker: none
 
 ## Session Log
@@ -28,9 +29,10 @@ handoff with `/harness:end`. Chat summaries are not state; this file is.
   - `node scripts/scaffold.mjs --target test/fixtures/node-pnpm --dry-run` → detects pnpm + biome, 9 files would be written.
   - `./init.sh` on this repo → see Session 001 evidence line added by the run below.
 - **Evidence captured**: in `feature_list.json` (`runtime-001`, `scaffold-001`, `audit-001`).
-- **Commits**: initial commit (see `git log`).
+- **Commits**: 6cd1c65 initial; bded4e6 manifest arrays + rubric move; hooks-path and agents auto-discovery fixes; scaffold hint fix.
 - **Files or artifacts updated**: everything; first commit.
 - **Known risk or unresolved issue**:
-  - Plugin loading through the GitHub marketplace is not verified until Claude Code restarts with the new settings (`profile-001`).
+  - Plugin loads via `claude plugin` CLI; hooks were exercised with Node directly, not yet observed firing inside a live Claude Code session (first session in yakusub should confirm).
+  - Three manifest corrections were needed (`skills`/`agents` must be arrays or omitted; `hooks/hooks.json` must not be referenced in the manifest). Recorded in this log only.
   - `format-on-edit` quoting on paths with spaces is tested only through Node's shell; Windows cmd quoting of `{file}` in exotic formatters is untested.
 - **Next best step**: run `.\install.ps1`, restart Claude Code, confirm `/harness:init` is listed; then migrate yakusub (`yakusub-001`).
