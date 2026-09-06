@@ -35,4 +35,4 @@ handoff with `/harness:end`. Chat summaries are not state; this file is.
   - Plugin loads via `claude plugin` CLI; hooks were exercised with Node directly, not yet observed firing inside a live Claude Code session (first session in yakusub should confirm).
   - Three manifest corrections were needed (`skills`/`agents` must be arrays or omitted; `hooks/hooks.json` must not be referenced in the manifest). Recorded in this log only.
   - `format-on-edit` quoting on paths with spaces is tested only through Node's shell; Windows cmd quoting of `{file}` in exotic formatters is untested.
-- **Next best step**: run `.\install.ps1`, restart Claude Code, confirm `/harness:init` is listed; then migrate yakusub (`yakusub-001`).
+- **Next best step**: open a Claude Code session in yakusub and confirm the SessionStart context appears and `/harness:init` is listed; then start `skills-001` (agent-skills reads `harness.json`).
