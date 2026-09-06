@@ -1,0 +1,18 @@
+{
+  "name": "@jiranon/harness",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Personal, installable engineering harness for Claude Code: plugin runtime, project scaffold, user profile.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test \"test/**/*.test.mjs\"",
+    "verify": "node --test \"test/**/*.test.mjs\" && node scripts/validate.mjs --target . --quiet",
+    "scaffold": "node scripts/scaffold.mjs",
+    "validate": "node scripts/validate.mjs",
+    "sync-sources": "bash scripts/sync-sources.sh"
+  },
+  "license": "MIT"
+}

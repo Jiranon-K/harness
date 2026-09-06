@@ -1,0 +1,17 @@
+{
+  "name": "jiranon",
+  "owner": { "name": "Jiranon K", "url": "https://github.com/Jiranon-K" },
+  "metadata": {
+    "description": "Jiranon's personal Claude Code plugins.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "harness",
+      "source": "./",
+      "description": "Engineering harness: stop gate, git guard, format hook, session-start state recovery, /harness:init | audit | end.",
+      "version": "0.1.0",
+      "category": "productivity"
+    }
+  ]
+}

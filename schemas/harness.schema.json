@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Jiranon-K/harness/schemas/harness.schema.json",
+  "title": "Harness Descriptor (harness.json)",
+  "description": "Machine-readable statement of a project's commands, paths and harness version. Read by the Runtime hooks, init.sh, and the scaffold.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["harness_version", "project", "commands"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "harness_version": {
+      "type": "string",
+      "description": "Version of the harness templates this project was scaffolded from (semver).",
+      "pattern": "^\d+\.\d+\.\d+$"
+    },
+    "project": { "type": "string", "minLength": 1 },
+    "description": { "type": "string" },
+    "commands": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "install": { "type": "string", "description": "Dependency install; run by init.sh." },
+        "verify": { "type": "string", "description": "Baseline verification (typecheck, tests, lint); run by init.sh." },
+        "start": { "type": "string", "description": "Dev server / app start; printed by init.sh, run with RUN_START_COMMAND=1." },
+        "format": {
+          "type": "string",
+          "description": "Formatter for one file; {file} is replaced with the edited path. Omit to disable the format hook."
+        },
+        "test": { "type": "string", "description": "Narrow test loop for TDD; optional." }
+      }
+    },
+    "paths": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "progress": { "type": "string", "default": "claude-progress.md" },
+        "features": { "type": "string", "default": "feature_list.json" },
+        "specs": { "type": "string", "default": ".scratch" },
+        "harness_docs": { "type": "string", "default": "docs/harness" }
+      }
+    },
+    "requires": {
+      "type": "object",
+      "description": "Tool version gates checked by init.sh before installing. Keys are executables; values are semver ranges (>=, ^, exact).",
+      "additionalProperties": { "type": "string" }
+    },
+    "agents_md": {
+      "type": "boolean",
+      "description": "Also maintain an AGENTS.md pointer for non-Claude agents.",
+      "default": false
+    }
+  }
+}

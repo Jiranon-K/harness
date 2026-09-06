@@ -1,0 +1,19 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Jiranon-K/harness/main/schemas/harness.schema.json",
+  "harness_version": "{{harness_version}}",
+  "project": "{{project}}",
+  "description": "{{description}}",
+  "commands": {
+    "install": "{{install}}",
+    "verify": "{{verify}}",
+    "start": "{{start}}",
+    "format": "{{format}}"
+  },
+  "paths": {
+    "progress": "claude-progress.md",
+    "features": "feature_list.json",
+    "specs": ".scratch",
+    "harness_docs": "docs/harness"
+  },
+  "requires": {{requires}}
+}

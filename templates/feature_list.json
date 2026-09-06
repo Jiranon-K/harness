@@ -1,0 +1,31 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Jiranon-K/harness/main/schemas/feature_list.schema.json",
+  "project": "{{project}}",
+  "last_updated": "{{date}}",
+  "rules": {
+    "single_active_feature": true,
+    "passing_requires_evidence": true,
+    "do_not_skip_verification": true
+  },
+  "status_legend": {
+    "not_started": "Work has not begun.",
+    "in_progress": "The one feature currently being worked on.",
+    "blocked": "Cannot continue until the blocker documented in notes is resolved.",
+    "passing": "Every verification step ran and the evidence is recorded."
+  },
+  "features": [
+    {
+      "id": "example-001",
+      "priority": 1,
+      "area": "example",
+      "title": "Replace this example with the first real feature",
+      "user_visible_behavior": "What a user sees when this works.",
+      "status": "not_started",
+      "verification": ["The exact steps or commands that prove it works."],
+      "evidence": [],
+      "spec": "",
+      "depends_on": [],
+      "notes": ""
+    }
+  ]
+}

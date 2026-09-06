@@ -1,0 +1,19 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Jiranon-K/harness/main/schemas/harness.schema.json",
+  "harness_version": "0.1.0",
+  "project": "harness",
+  "description": "Personal, installable engineering harness for Claude Code: plugin runtime, project scaffold, user profile.",
+  "commands": {
+    "verify": "npm run verify",
+    "test": "npm run test"
+  },
+  "paths": {
+    "progress": "claude-progress.md",
+    "features": "feature_list.json",
+    "specs": ".scratch",
+    "harness_docs": "docs/harness"
+  },
+  "requires": {
+    "node": ">=22"
+  }
+}

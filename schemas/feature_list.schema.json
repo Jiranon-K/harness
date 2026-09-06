@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Jiranon-K/harness/schemas/feature_list.schema.json",
+  "title": "Feature List (feature_list.json)",
+  "description": "Source of truth for feature state. At most one feature is in_progress; passing requires evidence.",
+  "type": "object",
+  "required": ["project", "features"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "project": { "type": "string" },
+    "last_updated": { "type": "string", "description": "YYYY-MM-DD" },
+    "rules": {
+      "type": "object",
+      "properties": {
+        "single_active_feature": { "const": true },
+        "passing_requires_evidence": { "const": true },
+        "do_not_skip_verification": { "const": true }
+      }
+    },
+    "status_legend": { "type": "object", "additionalProperties": { "type": "string" } },
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "priority", "title", "user_visible_behavior", "status", "verification"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*-\d{3}$", "description": "e.g. capture-001" },
+          "priority": { "type": "integer", "minimum": 1, "description": "Lower runs first." },
+          "area": { "type": "string" },
+          "title": { "type": "string", "minLength": 1 },
+          "user_visible_behavior": { "type": "string", "minLength": 1 },
+          "status": { "type": "string", "enum": ["not_started", "in_progress", "blocked", "passing"] },
+          "verification": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+          "evidence": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "The command that ran and its result, with date. Required non-empty when passing."
+          },
+          "spec": { "type": "string", "description": "Path to the feature's spec, e.g. .scratch/capture/spec.md" },
+          "depends_on": { "type": "array", "items": { "type": "string" } },
+          "notes": { "type": "string", "description": "Required non-empty when blocked: the documented blocker." }
+        }
+      }
+    }
+  }
+}

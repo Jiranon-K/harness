@@ -1,0 +1,145 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Jiranon-K/harness/main/schemas/feature_list.schema.json",
+  "project": "harness",
+  "last_updated": "2026-09-06",
+  "rules": {
+    "single_active_feature": true,
+    "passing_requires_evidence": true,
+    "do_not_skip_verification": true
+  },
+  "status_legend": {
+    "not_started": "Work has not begun.",
+    "in_progress": "The one feature currently being worked on.",
+    "blocked": "Cannot continue until the blocker documented in notes is resolved.",
+    "passing": "Every verification step ran and the evidence is recorded."
+  },
+  "features": [
+    {
+      "id": "runtime-001",
+      "priority": 1,
+      "area": "runtime",
+      "title": "Four hooks: session-start, stop gate, format-on-edit, git guard",
+      "user_visible_behavior": "In a project with harness.json, a session opens with the Operating Loop and current state injected; stopping with an invalid feature list is blocked; edits are formatted; destructive git is denied everywhere.",
+      "status": "passing",
+      "verification": [
+        "node --test \"test/**/*.test.mjs\" passes hooks.test.mjs and git-rules.test.mjs",
+        "echo '{}' | CLAUDE_PROJECT_DIR=<dir without harness.json> node hooks/session-start.mjs prints nothing and exits 0"
+      ],
+      "evidence": [
+        "2026-09-06: node --test \"test/**/*.test.mjs\" → 56 tests, 56 pass, 0 fail",
+        "2026-09-06: session-start.mjs against D:/Project/yakusub (no harness.json yet) → empty stdout, exit 0"
+      ],
+      "spec": "",
+      "depends_on": [],
+      "notes": ""
+    },
+    {
+      "id": "scaffold-001",
+      "priority": 2,
+      "area": "scaffold",
+      "title": "scaffold.mjs writes the Scaffold from templates without overwriting",
+      "user_visible_behavior": "/harness:init on a Node/Python/Rust/Go project detects commands, writes harness.json, init.sh, feature_list.json, progress log, docs/harness/*, appends a CLAUDE.md block, and generates .agent/context.md; a second run changes nothing.",
+      "status": "passing",
+      "verification": [
+        "node --test \"test/**/*.test.mjs\" passes scaffold.test.mjs (fresh write, idempotence, CLAUDE.md block append/stale/refresh, hand-written .agent/context.md preserved, init.sh runs verify, version gate fails on a missing tool)"
+      ],
+      "evidence": [
+        "2026-09-06: node --test \"test/**/*.test.mjs\" → 56 tests, 56 pass, 0 fail"
+      ],
+      "spec": "",
+      "depends_on": [],
+      "notes": ""
+    },
+    {
+      "id": "audit-001",
+      "priority": 3,
+      "area": "audit",
+      "title": "validate.mjs scores five subsystems and reports drift",
+      "user_visible_behavior": "/harness:audit prints a 0–100 score across instructions/state/verification/scope/lifecycle, FAIL/WARN/INFO findings, and template drift; exits 1 on any FAIL.",
+      "status": "passing",
+      "verification": [
+        "node scripts/validate.mjs --target . exits 0 with score >= 70",
+        "scaffold.test.mjs: a fresh scaffold scores >= 70; a passing feature without evidence makes it exit 1"
+      ],
+      "evidence": [
+        "2026-09-06: node --test → validate tests pass; npm run verify → see claude-progress.md Session 001"
+      ],
+      "spec": "",
+      "depends_on": [
+        "scaffold-001"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "profile-001",
+      "priority": 4,
+      "area": "profile",
+      "title": "install.ps1 / install.sh install the Profile and register the marketplace",
+      "user_visible_behavior": "Running the installer copies profile/CLAUDE.md to ~/.claude/CLAUDE.md (backing up a foreign file), merges marketplace jiranon + enabledPlugins.harness@jiranon into ~/.claude/settings.json without touching other keys, and prints next steps.",
+      "status": "in_progress",
+      "verification": [
+        ".\\install.ps1 on this machine; then ~/.claude/CLAUDE.md contains the Profile and settings.json contains extraKnownMarketplaces.jiranon and enabledPlugins.harness@jiranon while keeping the mattpocock marketplace",
+        "Claude Code lists harness@jiranon after restart / plugin install"
+      ],
+      "evidence": [],
+      "spec": "",
+      "depends_on": [],
+      "notes": "Installer written and parse-checked; not yet run on this machine."
+    },
+    {
+      "id": "yakusub-001",
+      "priority": 5,
+      "area": "adoption",
+      "title": "yakusub migrated to the plugin Runtime",
+      "user_visible_behavior": "yakusub has harness.json; its project-level stop-gate and biome hooks and .claude/settings.json hooks are removed in favour of the plugin; CLAUDE.md no longer carries the Operating Loop; ./init.sh and the stop gate are green.",
+      "status": "not_started",
+      "verification": [
+        "cd D:/Project/yakusub && ./init.sh exits 0",
+        "echo '{}' | CLAUDE_PROJECT_DIR=D:/Project/yakusub node hooks/stop-gate.mjs exits 0",
+        "node scripts/validate.mjs --target D:/Project/yakusub exits 0"
+      ],
+      "evidence": [],
+      "spec": "",
+      "depends_on": [
+        "runtime-001",
+        "scaffold-001"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "skills-001",
+      "priority": 6,
+      "area": "adoption",
+      "title": "agent-skills reads harness.json directly (retire generated .agent/context.md)",
+      "user_visible_behavior": "Skills in Jiranon-K/agent-skills read commands and paths from harness.json when present, so /harness:init no longer needs to generate .agent/context.md.",
+      "status": "not_started",
+      "verification": [
+        "/setup-context in a harness project reports harness.json as the source and writes nothing",
+        "ADR-0003 marked superseded"
+      ],
+      "evidence": [],
+      "spec": "",
+      "depends_on": [
+        "yakusub-001"
+      ],
+      "notes": "Follow-up recorded in ADR-0003. Requires changes in the agent-skills repository."
+    },
+    {
+      "id": "evaluator-001",
+      "priority": 7,
+      "area": "runtime",
+      "title": "Evaluator rubric tuned against human review",
+      "user_visible_behavior": "After 3–5 tuning rounds on real yakusub features, harness-evaluator's Accept/Revise/Block matches the user's own judgment; each round is logged in the project rubric's tuning log.",
+      "status": "not_started",
+      "verification": [
+        "docs/harness/evaluator-rubric.md in yakusub has >= 3 tuning-log rows and the last two rounds show no disagreement"
+      ],
+      "evidence": [],
+      "spec": "",
+      "depends_on": [
+        "yakusub-001"
+      ],
+      "notes": ""
+    }
+  ]
+}
