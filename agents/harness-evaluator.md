@@ -17,7 +17,7 @@ talk themselves into approving work after listing its problems.
 - `claude-progress.md`: the latest session entry.
 - The diff for the work: `git diff <base>..HEAD` or `git log -p -1` if not told otherwise.
 - The rubric: `docs/harness/evaluator-rubric.md` in the project if it exists (project override),
-  otherwise `${CLAUDE_PLUGIN_ROOT}/agents/evaluator-rubric.md`.
+  otherwise `${CLAUDE_PLUGIN_ROOT}/docs/evaluator-rubric.default.md`.
 
 ## Method
 

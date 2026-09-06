@@ -111,7 +111,7 @@ the rubric against human judgment over 3–5 rounds and record each change. Keep
 document** that grades the codebase over time, distinct from the per-session rubric.
 *Source: lectures 13–14; `resources/templates/evaluator-rubric.md`, `quality-document.md`.*
 
-**[harness]** `harness-evaluator` subagent + default rubric in `agents/`; project override in
+**[harness]** `harness-evaluator` subagent + default rubric in `docs/evaluator-rubric.default.md`; project override in
 `docs/harness/evaluator-rubric.md`, created lazily when tuning starts.
 
 ## 11. Claude Code as a harness (what we adopt)

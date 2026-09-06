@@ -90,7 +90,7 @@ Schemas: [schemas/](schemas/).
 .claude-plugin/   plugin.json, marketplace.json (marketplace "jiranon")
 hooks/            hooks.json + 4 hook scripts (Node, zero deps)
 skills/           init, audit, end, principles
-agents/           harness-evaluator + default rubric
+agents/           harness-evaluator subagent (default rubric: docs/evaluator-rubric.default.md)
 schemas/          harness.json and feature_list.json JSON Schemas
 templates/        Scaffold sources ({{var}} placeholders)
 scripts/          scaffold.mjs, validate.mjs, sync-sources.sh

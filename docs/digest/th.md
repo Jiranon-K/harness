@@ -105,7 +105,7 @@ feature state ซื่อตรง, ไม่มีขั้นครึ่ง 
 เก็บ **quality document** ที่ให้เกรด codebase ตามเวลา แยกจาก rubric รายเซสชัน
 *ที่มา: lecture 13–14; `evaluator-rubric.md`, `quality-document.md`*
 
-**[harness]** subagent `harness-evaluator` + rubric default ใน `agents/`; override ต่อโปรเจ็กที่
+**[harness]** subagent `harness-evaluator` + rubric default ที่ `docs/evaluator-rubric.default.md`; override ต่อโปรเจ็กที่
 `docs/harness/evaluator-rubric.md` สร้างเมื่อเริ่ม tune
 
 ## 11. Claude Code ในฐานะ harness (สิ่งที่เรารับมา)
